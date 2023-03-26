@@ -1,0 +1,70 @@
+<html>
+  <head>
+    <script>
+      var source = new EventSource("/stream");
+      source.onmessage = function(event) {
+        document.getElementById("result").innerHTML += event.data + "<br>";
+      };
+    </script>
+    <style>
+      body {
+        background-color: turquoise;
+        text-align: center;
+        font-family: Arial, sans-serif;
+      }
+      h1 {
+        font-size: 36px;
+        margin-top: 50px;
+        color: white;
+      }
+      .container {
+        width: 50%;
+        margin: auto;
+        text-align: left;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+      }
+      .title {
+        font-size: 24px;
+        margin-bottom: 10px;
+      }
+      .info {
+        font-size: 18px;
+        color: gray;
+        margin-bottom: 20px;
+      }
+      .description {
+        font-size: 18px;
+        margin-bottom: 20px;
+      }
+      button {
+        background-color: turquoise;
+        color: white;
+        padding: 20px 40px;
+        border: none;
+        border-radius: 10px;
+        font-size: 24px;
+        cursor: pointer;
+        margin-top: 20px;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Parasha4U</h1>
+    <div class="container">
+      {% if data %}
+        <div class="title">{{ data.name }}</div>
+        <div class="info">{{ data.info }}</div>
+        <div class="description">{{ data.description }}</div>
+      {% else %}
+        <form method="post">
+          <button type="submit">Parasha Summery!</button>
+        </form>
+        <a href="https://www.sefaria.org.il/calendars">
+          <button>To the Sefaria Website!</button>
+        </a>
+      {% endif %}
+    </div>
+  </body>
+</html>
