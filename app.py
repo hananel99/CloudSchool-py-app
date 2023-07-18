@@ -1,7 +1,39 @@
 from flask import Flask, render_template, request
+import boto3
 import requests
+import urllib.request
+
+
+AWS_REGION_NAME = 'eu-west-1'
+
+boto3_logs_client = boto3.client("logs", region_name=AWS_REGION_NAME)
+
+log_level = {
+  'CRITICAL' : 50,
+  'ERROR'	   : 40,
+  'WARN'  	 : 30,
+  'INFO'	   : 20,
+  'DEBUG'	   : 10
+}
+logger = logging.getLogger("werkzeug")
+
 
 app = Flask(__name__)
+
+# Load the configuration from app.conf file
+app.config.from_pyfile("app.conf", silent=False)
+
+MYSQL_ENDPOINT = (app.config.get("MYSQL_ENDPOINT")).split(":")[0]
+LOG_LEVEL = app.config.get("LOG_LEVEL")
+VAULT_ENDPOINT = app.config.get("VAULT_ENDPOINT")
+VAULT_TOKEN = app.config.get("VAULT_TOKEN")
+VAULT_PATH_TO_CREDS = app.config.get("VAULT_PATH_TO_CREDS")
+APPLICATION_VERSION = app.config.get("APPLICATION_VERSION")
+VAULT_CLIENT = hvac.Client(url=VAULT_ENDPOINT, token=VAULT_TOKEN)
+
+@app.errorhandler(404)
+def not_found(error):
+    return render_template('error.html'), 404
 
 @app.route("/", methods=['GET', 'POST'])
 def index():
@@ -32,4 +64,4 @@ def index():
         return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(debug=True,port=3000)
+    app.run() #host= "0.0.0.0", port = 5000, debug=True)
