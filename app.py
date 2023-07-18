@@ -2,6 +2,9 @@ from flask import Flask, render_template, request
 import boto3
 import requests
 import urllib.request
+import logging
+import logging.config
+
 
 
 AWS_REGION_NAME = 'eu-west-1'
