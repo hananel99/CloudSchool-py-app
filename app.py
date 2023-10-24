@@ -4,8 +4,8 @@ import requests
 import urllib.request
 import logging
 import logging.config
-
-
+import hvac
+from description import get_description
 
 AWS_REGION_NAME = 'eu-west-1'
 
@@ -38,6 +38,10 @@ VAULT_CLIENT = hvac.Client(url=VAULT_ENDPOINT, token=VAULT_TOKEN)
 def not_found(error):
     return render_template('error.html'), 404
 
+@app.route('/checkhealth', methods=['GET'])
+def check_health():
+    return "Server is healthy"
+
 @app.route("/", methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -47,8 +51,7 @@ def index():
         # Retrieve the data from the API
         title = response["calendar_items"][0]["title"]["en"]
         title_info = response["calendar_items"][0]["displayValue"]["en"]
-        description = response["calendar_items"][0]["description"]["en"]
-
+        description = get_description()
         # Check if the API request was successful
         try:
             # Retrieve the data from the API
@@ -67,4 +70,4 @@ def index():
         return render_template("index.html")
 
 if __name__ == "__main__":
-    app.run(host= "0.0.0.0", port = 8080, debug=True)
+    app.run() #host= "0.0.0.0", port = 8080, debug=True
