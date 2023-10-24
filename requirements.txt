@@ -2,4 +2,5 @@ Flask
 requests
 boto3
 urllib3
-
+hvac
+BeautifulSoup4
