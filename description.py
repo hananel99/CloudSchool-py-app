@@ -29,6 +29,7 @@ def get_description():
         description = []
         for paragraph in paragraphs:
             description.append(paragraph.get_text())
-        return "".join(description)
+
+        return description[1] + description[2]
     else:
         print("Failed to retrieve the web page. Status code:", response.status_code)
