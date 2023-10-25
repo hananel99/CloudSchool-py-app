@@ -8,7 +8,7 @@ import hvac
 import re
 from description import get_description
 
-AWS_REGION_NAME = 'eu-west-1'
+AWS_REGION_NAME = 'us-east-1'
 
 boto3_logs_client = boto3.client("logs", region_name=AWS_REGION_NAME)
 
