@@ -5,6 +5,7 @@ import urllib.request
 import logging
 import logging.config
 import hvac
+import re
 from description import get_description
 
 AWS_REGION_NAME = 'eu-west-1'
