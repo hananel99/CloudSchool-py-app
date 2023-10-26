@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout SCM') {
     steps {
         script {
-            withCredentials([string(credentialsId: 'GITHUB_APP_INSTALLATION_TOKEN', variable: 'AppCredentials')]) {
+            withCredentials([string(credentialsId: 'AppCredentials', variable: 'INSTALLATION_TOKEN')]) {
                 def scmVars = checkout([
                     $class: 'GitSCM',
                     branches: [[name: 'main']],
