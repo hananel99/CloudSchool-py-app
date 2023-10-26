@@ -6,22 +6,23 @@ pipeline {
     }
     stages {
         stage('Checkout SCM') {
-            steps {
-                // Your existing code for checking out the repository.
-                // This remains unchanged.
-                script {
-                    def scmVars = checkout([
-                        $class: 'GitSCM',
-                        branches: [[name: 'main']],
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/hananel99/CloudSchool-py-app',
-                            credentialsId: '',
-                        ]]
-                    ])
-                    env.GIT_COMMIT = scmVars.GIT_COMMIT
-                }
+    steps {
+        script {
+            withCredentials([string(credentialsId: 'GITHUB_APP_INSTALLATION_TOKEN', variable: 'AppCredentials')]) {
+                def scmVars = checkout([
+                    $class: 'GitSCM',
+                    branches: [[name: 'main']],
+                    userRemoteConfigs: [[
+                        url: 'https://github.com/EliranKasif/CloudSchool-PythonRestApi',
+                        credentialsId: '',
+                    ]]
+                ])
+                env.GIT_COMMIT = scmVars.GIT_COMMIT
             }
         }
+    }
+}
+
         stage('updatesConsulKey') {
             steps {
                 // You can use Git to determine the list of changed files.
