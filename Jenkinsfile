@@ -13,7 +13,7 @@ pipeline {
                     $class: 'GitSCM',
                     branches: [[name: 'main']],
                     userRemoteConfigs: [[
-                        url: 'https://github.com/EliranKasif/CloudSchool-PythonRestApi',
+                        url: 'https://github.com/hananel99/CloudSchool-py-app',
                         credentialsId: '',
                     ]]
                 ])
