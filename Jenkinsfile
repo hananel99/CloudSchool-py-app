@@ -8,7 +8,7 @@ pipeline {
         stage('Checkout SCM') {
     steps {
         script {
-            withCredentials([string(credentialsId: 'AppCredentials', variable: 'INSTALLATION_TOKEN')]) {
+            withCredentials([string(credentialsId: 'AppCredentials', variable: 'ACCESS_TOKEN')]) {
                 def scmVars = checkout([
                     $class: 'GitSCM',
                     branches: [[name: 'main']],
