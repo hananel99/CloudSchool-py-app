@@ -7,7 +7,7 @@ import logging.config
 import hvac
 import re
 from description import get_description
-
+from fixconf import fix_conf
 AWS_REGION_NAME = 'us-east-1'
 
 boto3_logs_client = boto3.client("logs", region_name=AWS_REGION_NAME)
@@ -24,20 +24,7 @@ logger = logging.getLogger("werkzeug")
 
 app = Flask(__name__)
 
-# Specify the path to your app.conf file
-file_path = "/home/bob/myapp/app.conf"
-
-
-# Read the file
-with open(file_path, 'r') as file:
-    content = file.read()
-
-# Use a regular expression to remove newlines followed by a double quote
-cleaned_content = re.sub(r'\n"', '"', content)
-
-# Write the modified content back to the file
-with open(file_path, 'w') as file:
-    file.write(cleaned_content)
+fix_conf()
 
 # Load the configuration from app.conf file
 app.config.from_pyfile("app.conf", silent=False)
