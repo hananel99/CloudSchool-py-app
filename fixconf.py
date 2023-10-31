@@ -1,3 +1,4 @@
+import re
 
 def fix_conf():
     # Specify the path to your app.conf file
