@@ -4,4 +4,3 @@ boto3
 urllib3
 hvac
 BeautifulSoup4
-re 
